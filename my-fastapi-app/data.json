@@ -1,0 +1,185 @@
+[
+    {
+        "id": 1,
+        "name": "Wireless Mechanical Keyboard",
+        "category": "Electronics",
+        "price": 89.99,
+        "in_stock": true,
+        "stock": 24,
+        "rating": 4.7,
+        "tags": [
+            "wireless",
+            "mechanical",
+            "rgb"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Ergonomic Mesh Office Chair",
+        "category": "Furniture",
+        "price": 249.5,
+        "in_stock": true,
+        "stock": 8,
+        "rating": 4.5,
+        "tags": [
+            "office",
+            "ergonomic",
+            "seating"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "USB-C Multiport Hub",
+        "category": "Accessories",
+        "price": 34.99,
+        "in_stock": false,
+        "stock": 0,
+        "rating": 4.2,
+        "tags": [
+            "usb-c",
+            "adapter",
+            "portable"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "27-Inch 4K IPS Monitor",
+        "category": "Electronics",
+        "price": 329.0,
+        "in_stock": true,
+        "stock": 12,
+        "rating": 4.8,
+        "tags": [
+            "4k",
+            "display",
+            "ips"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Insulated Stainless Steel Water Bottle",
+        "category": "Lifestyle",
+        "price": 22.0,
+        "in_stock": true,
+        "stock": 55,
+        "rating": 4.6,
+        "tags": [
+            "fitness",
+            "eco-friendly",
+            "travel"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Noise-Cancelling Over-Ear Headphones",
+        "category": "Electronics",
+        "price": 199.99,
+        "in_stock": true,
+        "stock": 15,
+        "rating": 4.9,
+        "tags": [
+            "audio",
+            "bluetooth",
+            "anc"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Standing Desk Converter",
+        "category": "Furniture",
+        "price": 145.0,
+        "in_stock": false,
+        "stock": 0,
+        "rating": 4.3,
+        "tags": [
+            "desk",
+            "ergonomic",
+            "adjustable"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Braided Nylon Fast Charging Cable",
+        "category": "Accessories",
+        "price": 12.99,
+        "in_stock": true,
+        "stock": 100,
+        "rating": 4.4,
+        "tags": [
+            "charging",
+            "durable",
+            "usb-c"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Minimalist Desk Lamp with Wireless Charger",
+        "category": "Furniture",
+        "price": 45.5,
+        "in_stock": true,
+        "stock": 19,
+        "rating": 4.1,
+        "tags": [
+            "lighting",
+            "qi-charging",
+            "desk"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Laptop Backpack 16-Inch",
+        "category": "Lifestyle",
+        "price": 59.99,
+        "in_stock": true,
+        "stock": 30,
+        "rating": 4.7,
+        "tags": [
+            "travel",
+            "water-resistant",
+            "storage"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "1080p HD Webcam with Privacy Cover",
+        "category": "Electronics",
+        "price": 49.99,
+        "in_stock": false,
+        "stock": 0,
+        "rating": 4.0,
+        "tags": [
+            "video",
+            "streaming",
+            "remote-work"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Aluminum Laptop Stand",
+        "category": "Accessories",
+        "price": 29.99,
+        "in_stock": true,
+        "stock": 42,
+        "rating": 4.8,
+        "tags": [
+            "cooling",
+            "ergonomic",
+            "metal"
+        ]
+    },
+    {
+        "id": "13",
+        "name": "iphone23",
+        "category": "Electronics23",
+        "price": 34.5,
+        "in_stock": true,
+        "stock": 12,
+        "rating": 3.5,
+        "tags": [
+            "wireless",
+            "mechanical",
+            "rgb2"
+        ],
+        "total_price": 414.0
+    }
+]

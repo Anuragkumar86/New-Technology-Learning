@@ -1,7 +1,9 @@
-from sqlalchemy import String, Float, Integer, Boolean
+from sqlalchemy import Boolean, Float, Integer, String
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column
+
 from database import Base
+
 
 class ProductDB(Base):
     # 1. Exact table name inside PostgreSQL

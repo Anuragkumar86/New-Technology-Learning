@@ -57,5 +57,10 @@ jobs:
       - name: Install project dependencies
         run: uv sync --locked --dev
 
+      - name: Run Ruff linter
+        run: uv run ruff check .
+
+      - name: Check Ruff formatting
+        run: uv run ruff format --check .
       - name: Run pytest test suite
         run: uv run python -m pytest -v

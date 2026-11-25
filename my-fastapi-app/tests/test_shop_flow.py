@@ -1,5 +1,6 @@
 # File: tests/test_shop_flow.py
 
+
 def test_full_product_lifecycle(client):
     # --- STEP 1: CREATE (POST /create) ---
     create_payload = {
@@ -11,7 +12,9 @@ def test_full_product_lifecycle(client):
         "rating": 4.9,
         "tags": ["audio", "wireless"],
     }
-    create_res = client.post("/create", json=create_payload, headers={"X-API-Key": "anurag-secret-123"})
+    create_res = client.post(
+        "/create", json=create_payload, headers={"X-API-Key": "anurag-secret-123"}
+    )
 
     assert create_res.status_code == 201
     created_product = create_res.json()
@@ -32,18 +35,19 @@ def test_full_product_lifecycle(client):
     patch_res = client.patch(
         f"/products/{product_id}",
         json={"price": 300.0, "stock": 2},
-        
     )
 
     assert patch_res.status_code == 200
     updated_product = patch_res.json()
     assert updated_product["price"] == 300.0
     assert updated_product["stock"] == 2
-    assert updated_product["total_price"] == 600.0     # Recomputed: 300.0 * 2
+    assert updated_product["total_price"] == 600.0  # Recomputed: 300.0 * 2
     assert updated_product["name"] == "Sony WH-1000XM5"  # Unchanged field preserved!
 
     # --- STEP 4: DELETE (DELETE /products/{product_id}) ---
-    delete_res = client.delete(f"/products/{product_id}", headers={"X-API-Key": "anurag-secret-123"})
+    delete_res = client.delete(
+        f"/products/{product_id}", headers={"X-API-Key": "anurag-secret-123"}
+    )
     assert delete_res.status_code == 204
 
     # --- STEP 5: CONFIRM DELETED (GET /products/{product_id} -> 404) ---

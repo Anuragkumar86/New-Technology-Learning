@@ -7,8 +7,14 @@ from database import Base          # Your DeclarativeBase from database.py
 from main import app, get_db       # Your FastAPI app and original get_db dependency
 from models import ProductDB       # Your ProductDB table model
 
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # 1. Point to the TEST Docker container on port 5433 (NOT 5432!)
-TEST_DATABASE_URL = "postgresql+psycopg://admin:secretpassword@localhost:5433/shop_test_db"
+TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "postgresql+psycopg://admin:secretpassword@localhost:5433/shop_test_db")
 
 test_engine = create_engine(TEST_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)

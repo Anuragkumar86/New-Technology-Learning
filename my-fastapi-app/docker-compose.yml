@@ -1,0 +1,41 @@
+# File: docker-compose.yml (Placed at your project root alongside .env and Dockerfile)
+
+services:
+  # --- SERVICE 1: Standard PostgreSQL 16 (Alpine lightweight image) ---
+  db:
+    image: postgres:16-alpine
+    container_name: shop_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"                      # Lets you connect from Windows (pgAdmin/local dev) on localhost:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Keeps your products safe on disk across restarts
+    healthcheck:
+      # Waits until PostgreSQL is actually ready to accept queries before starting FastAPI
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- SERVICE 2: Your FastAPI Shop API ---
+  api:
+    build: .                             # Builds the Dockerfile in your root directory
+    container_name: shop_fastapi_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"                      # Open http://localhost:8000/docs in your browser
+    env_file:
+      - .env                             # Loads ADMIN_API_KEY and other variables from your root .env
+    environment:
+      # Overrides DATABASE_URL inside Docker to use the service name 'db' instead of 'localhost'
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      db:
+        condition: service_healthy       # Ensures 'db' passes its healthcheck before 'api' boots
+
+volumes:
+  postgres_data:

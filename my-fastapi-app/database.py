@@ -1,8 +1,15 @@
 from sqlalchemy import create_engine
+import os
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
-
+from dotenv import load_dotenv
+load_dotenv()
 # 1. Connection address matching the exact credentials from our Docker command
-DATABASE_URL = "postgresql+psycopg://admin:secretpassword@localhost:5432/shop_db"
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is not set in .env or environment!")
+
+# DATABASE_URL = "postgresql+psycopg://admin:secretpassword@localhost:5432/shop_db"
 
 # 2. Create the connection pool (Engine)
 # echo=True prints the generated SQL commands in your terminal so you can see what happens

@@ -11,8 +11,28 @@ from fastapi.responses import StreamingResponse
 import json
 import asyncio
 import secrets
+from contextlib import asynccontextmanager
+from database import Base, engine
+import models  # Crucial: imports ProductDB so Base.metadata knows the 'products' table exists!
 
-app = FastAPI(title="Shop API with PostgreSQL")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
+if not ADMIN_API_KEY:
+    raise RuntimeError("ADMIN_API_KEY is missing from environment!")
+
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Runs once when FastAPI boots up: creates 'products' table if it doesn't exist yet!
+    Base.metadata.create_all(bind=engine)
+    yield
+
+app = FastAPI(title="Shop API with PostgreSQL", lifespan=lifespan)
 
 def get_db():
     db = SessionLocal()
@@ -62,7 +82,7 @@ async def product_stream_live(request: Request):
 
 # -----------------------------SECURITY-------------------------------------------------
 
-MY_SECRET_KEY = "anurag-secret-123"
+ADMIN_API_KEY = "anurag-secret-123"
 
 header_extractor = APIKeyHeader(name="X-API-Key", auto_error=False)
 
@@ -70,7 +90,7 @@ def verify_admin_api_key(incoming_key : Annotated[str | None, Security(header_ex
     if incoming_key is None:
         raise HTTPException(status_code=401, detail="X-API-KEY is missing in Header")
 
-    if not secrets.compare_digest(incoming_key, MY_SECRET_KEY):
+    if not secrets.compare_digest(incoming_key, ADMIN_API_KEY):
         raise HTTPException(status_code=401, detail="Wrong API Key!")
 
     # Step C: Key is valid! Let the user enter the route.
@@ -82,7 +102,7 @@ AdminAuth = Annotated[str | None, Depends(verify_admin_api_key)]
 
 # -------------------------------ROUTES----------------------------------------------
 @app.post("/create", response_model=ProductResponse, status_code=201)
-def create_product(product: ProductCreate, db:dbSession, bg_tasks: BackgroundTasks):
+def create_product(product: ProductCreate, db:dbSession, bg_tasks: BackgroundTasks, admin_api: AdminAuth):
 
    new_product = ProductDB(**product.model_dump())
 
@@ -110,7 +130,7 @@ def get_product(product_id: int, db:dbSession):
     return product
 
 
-@app.delete("/products/{product_id}", status_code=204)
+@app.delete("/products/{product_id}", status_code=204, dependencies=[Depends(verify_admin_api_key)])
 def delete_product(product_id: int, db:dbSession):
     product = db.get(ProductDB, product_id)
 

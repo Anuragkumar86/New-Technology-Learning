@@ -12,10 +12,21 @@ dependencies = [
     "psycopg[binary]>=3.3.9",
     "pydantic>=2.14.4",
     "pytest>=9.2.0",
+    "python-dotenv>=1.2.4",
     "sqlalchemy>=2.1.9",
     "sqlmodel>=0.0.50",
 ]
 
 [project.scripts]
 my-fastapi-app = "my_fastapi_app:main"
+
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=1.5.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
 

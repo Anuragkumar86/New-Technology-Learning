@@ -1,0 +1,8 @@
+# NEVER copy your local Windows .venv into a Linux Docker container!
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/
+.git/
+.env

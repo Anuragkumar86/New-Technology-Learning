@@ -8,9 +8,12 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi[standard]>=0.165.0",
     "google-genai>=3.6.1",
     "pydantic>=2.14.4",
+    "pydantic-settings>=2.16.3",
     "python-dotenv>=1.2.4",
+    "tenacity>=9.1.4",
     "tiktoken>=0.14.0",
 ]
 
